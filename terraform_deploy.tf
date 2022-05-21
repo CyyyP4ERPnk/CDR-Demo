@@ -1,0 +1,1 @@
+terraform apply -var 'elastic_pw={pw_elastic}' -var-file=env/test.tfvars -auto-approve

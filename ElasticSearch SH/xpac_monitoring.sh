@@ -1,0 +1,2 @@
+################### ENABLE X-PAC MONITORING ####################
+curl -X PUT "0.0.0.0:9200/_cluster/settings?pretty" -H 'Content-Type: application/json' -d' {"persistent": {"xpack.monitoring.collection.enabled": true}}'
