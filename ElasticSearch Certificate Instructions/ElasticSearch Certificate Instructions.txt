@@ -1,0 +1,4 @@
+Reference this page for instructions on how to setup a certificate for Elasticsearch.
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup.html#generate-certificates
+
