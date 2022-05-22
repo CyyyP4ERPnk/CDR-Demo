@@ -38,7 +38,7 @@ Google Cloud Storage Buckets were made manually, as well as the certificates to 
 Steps for manually creating each are detailed in their respective .txt files.
 **Make sure to place your certificate inside of the Google Cloud Storage bucket that you create. After you finish with this step, proceed with the rest of the setup.**
 
-Conduct a startup test for Elasticsearch by checking if the credentials.json file is present or not. This allows us to only run the startup script once, not every time we restart the machine. If the file is present we exit the script. "startup_check"
+Conduct a startup test for Elasticsearch by checking if the credentials.json file is present or not. This allows us to only run the startup script once, not every time we restart the machine. If the file is present we exit the script. "startup_check.sh"
 
 You'll then download and install the prerequisites to run Elasticsearch. "elastic_prerequisites.sh"
 
@@ -52,7 +52,25 @@ The next step will require you to install the necessary plugin needed to use GCS
 
 The next command enables X-Pack monitoring in the cluster settings. "xpac_monitoring.sh"
 
+Next, we copy the certificate that we placed in the GCS bucket into Elasticsearch, and we are also extending the elasticsearch.yml file with some security settings. You'll be adding the password to the Elasticsearch Keystore. 
+**In these examples, we’re not setting any password to the Keystores. Our password is not contained in the tfvar file like all the other arguments that we are sending into this script. Reference the tfvar file to confirm it doesn't have any elastic_pw. You can add it when you deploy your terraform code; this allows you to abstract the password away from the code and repository. "terraform_deploy.tf" **
+
+Lastly, you'll be registering the backup-repository and creating a policy so snapshots will be taken daily to your backup bucket.
+You'll also be creating some custom roles. "backup_snapshot_roles_etc.sh"
+
 
 ###########################################################################################################
 
 KIBANA
+
+Conduct a startup test for Kibana by checking if the credentials.json file is present or not. This allows us to only run the startup script once, not every time we restart the machine. If the file is present we exit the script. "startup_check.sh"
+
+You'll then download and install the prerequisites to run Kibana. "kibana_prerequisites.sh"
+
+Kibana has a Keystore that allows it to securely store sensitive information. Kibana will read from "kibana.yml" and "kibana.keystore" for settings. "kibana_keystore.sh"
+
+**After this, Kibana can connect to Elasticsearch without exposing your password in plain text.** 
+Beats and APM have Keystores that also operate in a similar way.
+
+Next, we copy the certificate that we placed in the GCS bucket into Kibana. "kibana_certificates.sh"
+
