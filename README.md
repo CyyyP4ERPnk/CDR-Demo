@@ -26,7 +26,7 @@ In this example we’re deploying three VMs, my-elastic-instance-1 and 2 are in 
 
 Since we also want to access Kibana through a load balancer, we’ll create an instance group for that too.
 
-You configure your load balancer with health-checks and forwarding rules. // REVISIT TO ADD MORE INFO
+You configure your load balancer with health-checks and forwarding rules. 
 
 **It's important to also create firewall rules. We want to allow internal communication between the nodes in the subnet, allowing load balancer and health checks to communicate with the VMs, but also make sure to block out unwanted traffic.**
 
@@ -44,7 +44,7 @@ You'll then download and install the prerequisites to run Elasticsearch. "elasti
 
 Next, you'll need to configure Elasticsearch in the elasticsearch.yml file. At this step, you are setting the IPs of the nodes and deciding which one is the master node. "elasticsearch_yaml"
 
-***Be mindful of the input variables in the start-up script; they were assigned and can be referenced in "startup_input_var".*** 
+**Be mindful of the input variables in the start-up script; they were assigned and can be referenced in "startup_input_var".** 
 
 Part of configuring Elasticsearch is setting aside RAM for Heap-Size. In this case, the heap-size is set to 50% of total RAM and below 32 GB. "jvm_ram.sh"
 
@@ -53,7 +53,7 @@ The next step will require you to install the necessary plugin needed to use GCS
 The next command enables X-Pack monitoring in the cluster settings. "xpac_monitoring.sh"
 
 Next, we copy the certificate that we placed in the GCS bucket into Elasticsearch, and we are also extending the elasticsearch.yml file with some security settings. You'll be adding the password to the Elasticsearch Keystore. 
-**In these examples, we’re not setting any password to the Keystores. Our password is not contained in the tfvar file like all the other arguments that we are sending into this script. Reference the tfvar file to confirm it doesn't have any elastic_pw. You can add it when you deploy your terraform code; this allows you to abstract the password away from the code and repository. "terraform_deploy.tf" **
+**In these examples, we’re not setting any password to the Keystores. Our password is not contained in the tfvar file like all the other arguments that we are sending into this script. Reference the tfvar file to confirm it doesn't have any elastic_pw. You can add it when you deploy your terraform code; this allows you to abstract the password away from the code and repository. "terraform_deploy.tf"**
 
 Lastly, you'll be registering the backup-repository and creating a policy so snapshots will be taken daily to your backup bucket.
 You'll also be creating some custom roles. "backup_snapshot_roles_etc.sh"
